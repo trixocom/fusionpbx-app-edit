@@ -29,10 +29,16 @@
 	require_once "resources/check_auth.php";
 
 //check permissions
-	if (!permission_exists('edit_view')) {
+	if (!permission_exists('provision_editor_view')) {
 		echo "access denied";
 		exit;
 	}
+
+// Trixocom: este editor esta restringido exclusivamente a las plantillas de aprovisionamiento.
+	$_GET['dir'] = 'provision';
+	$_REQUEST['dir'] = 'provision';
+	if (!isset($_SESSION) || !is_array($_SESSION)) { @session_start(); }
+	$_SESSION['app']['edit']['dir'] = 'provision';
 
 //get the directory
 	if (!isset($_SESSION)) { session_start(); }
